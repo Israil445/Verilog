@@ -16,7 +16,7 @@ module j_k_ff(q, q_bar, j, k, clear, clk);
 	nand(q_bar, q, clear, d);
 endmodule
 
-module Random_Seq_Counter(q,clear,clk);
+module Random_se_Counter(q,clear,clk);
 
 input clear,clk;
 output [3:0] q;
@@ -24,7 +24,7 @@ output [3:0] q;
 wire ja,ka,jb,kb,jc,kc,jd,kd;
 
 assign ja=(~q[1]&~(q[3]^q[2]));
-assign ka=((~q[0]&~q[3])|(q[0]&q[1]&q[2])|(~q[0]&q[3]&q[2]));
+assign ka=(~q[2]&~q[1]|~q[3]&q[2]|q[2]&q[1]);
 j_k_ff A(q[0], ,ja,ka,clear,clk);
 
 
@@ -40,10 +40,6 @@ j_k_ff C(q[2], ,jc,kc,clear,clk);
 assign jd=((q[2]&q[1]&~q[0])|(~q[0]&~q[1]&~q[2]&~q[3])|(q[0]&q[1]&~q[2]&~q[3]));
 assign kd=((q[1]&~q[0])|(q[0]&q[1]&q[2])|(~q[0]&~q[1])|(q[3]&~q[2]&~q[1]));
 j_k_ff D(q[3], ,jd,kd,clear,clk);
-
-
-
-
 
 
 
